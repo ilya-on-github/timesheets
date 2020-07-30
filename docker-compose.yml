@@ -1,0 +1,36 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    networks:
+      - ts-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  pgadmin:
+    image: "dpage/pgadmin4"
+    depends_on:
+      - "postgres"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "61886:80"
+    networks:
+      - ts-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+networks:
+  ts-net:
