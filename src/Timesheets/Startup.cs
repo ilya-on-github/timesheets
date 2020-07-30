@@ -1,18 +1,15 @@
 using System;
-using System.Linq;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Timesheets.Models.Mapping;
 using Timesheets.Persistence;
 using Timesheets.Persistence.Queries;
-using Timesheets.Services.Queries;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets
@@ -48,19 +45,10 @@ namespace Timesheets
 
             services.AddDbContext<AppDbContext>(ops => { ops.UseNpgsql(_configuration.GetConnectionString("main")); });
 
-            var queryImplBase = typeof(Query);
-            var queryImplementations = typeof(Query).Assembly.GetExportedTypes()
-                .Where(t => !t.IsInterface && !t.IsAbstract && queryImplBase.IsAssignableFrom(t));
-
-            foreach (var q in queryImplementations)
-            {
-                var queryInterfaces = q.GetInterfaces();
-
-                foreach (var i in queryInterfaces)
-                {
-                    services.AddScoped(i, q);
-                }
-            }
+            services.AddMediatR(
+                typeof(AccountQuery).Assembly,
+                typeof(AccountQueryHandler).Assembly
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

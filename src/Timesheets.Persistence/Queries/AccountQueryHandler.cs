@@ -3,25 +3,26 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class AccountQuery : Query, IAccountQuery
+    public class AccountQueryHandler : Query, IRequestHandler<AccountQuery, IEnumerable<IAccount>>
     {
-        public AccountQuery(AppDbContext dbContext, IMapper mapper)
+        public AccountQueryHandler(AppDbContext dbContext, IMapper mapper)
             : base(dbContext, mapper)
         {
         }
 
-        public async Task<IEnumerable<IAccount>> Execute(AccountFilter filter, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IAccount>> Handle(AccountQuery request, CancellationToken cancellationToken)
         {
             var items = await DbContext.Accounts
                 .AsNoTracking()
-                .Where(AccountSpecs.ByFilter(filter))
+                .Where(AccountSpecs.ByFilter(request.Filter))
                 .OrderBy(x => x.Name)
-                .Page(filter)
+                .Page(request.Filter)
                 .ToListAsync(cancellationToken);
 
             return Mapper.Map<IEnumerable<IAccount>>(items);

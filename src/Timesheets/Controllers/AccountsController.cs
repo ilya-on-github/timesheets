@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Timesheets.Models;
 using Timesheets.Services.Queries.Accounts;
@@ -12,12 +12,9 @@ namespace Timesheets.Controllers
     [Route("api/accounts")]
     public class AccountsController : Controller
     {
-        private readonly IAccountQuery _accountQuery;
-
-        public AccountsController(IAccountQuery accountQuery, IMapper mapper)
-            : base(mapper)
+        public AccountsController(IMapper mapper, Mediator mediator)
+            : base(mapper, mediator)
         {
-            _accountQuery = accountQuery ?? throw new ArgumentNullException(nameof(accountQuery));
         }
 
         [HttpGet]
@@ -26,7 +23,7 @@ namespace Timesheets.Controllers
             CancellationToken cancellationToken)
         {
             var filter = Mapper.Map<AccountFilter>(filterDto);
-            var accounts = await _accountQuery.Execute(filter, cancellationToken);
+            var accounts = await Mediator.Send(new AccountQuery(filter), cancellationToken);
 
             return Ok(Mapper.Map<IEnumerable<AccountDto>>(accounts));
         }
