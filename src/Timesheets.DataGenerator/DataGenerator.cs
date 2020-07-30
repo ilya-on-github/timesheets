@@ -74,7 +74,7 @@ namespace Timesheets.DataGenerator
             var workLogs = employees
                 .RandomSubset(80)
                 .SelectMany(e =>
-                    _fixture.Build<Worklog1>()
+                    _fixture.Build<Worklog>()
                         .With(w => w.EmployeeId, e.Id)
                         .With(w => w.IssueId, issues.Random().Id)
                         .With(w => w.TimeSpent, () => TimeSpan.FromMinutes(_fixture.Create<int>()))
