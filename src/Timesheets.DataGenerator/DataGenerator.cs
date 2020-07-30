@@ -66,7 +66,7 @@ namespace Timesheets.DataGenerator
         }
 
         [Test]
-        public async Task GenerateWorkLogs()
+        public async Task GenerateWorklogs()
         {
             var employees = await Get<Employee>(CancellationToken.None);
             var issues = await Get<Issue>(CancellationToken.None);
@@ -74,7 +74,7 @@ namespace Timesheets.DataGenerator
             var workLogs = employees
                 .RandomSubset(80)
                 .SelectMany(e =>
-                    _fixture.Build<WorkLog>()
+                    _fixture.Build<Worklog1>()
                         .With(w => w.EmployeeId, e.Id)
                         .With(w => w.IssueId, issues.Random().Id)
                         .With(w => w.TimeSpent, () => TimeSpan.FromMinutes(_fixture.Create<int>()))

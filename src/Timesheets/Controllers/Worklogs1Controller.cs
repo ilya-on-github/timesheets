@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Timesheets.Controllers
 {
-    public class WorkLogsController : Controller
+    public class Worklogs1Controller : Controller
     {
-        public WorkLogsController(IMapper mapper, IMediator mediator)
+        public Worklogs1Controller(IMapper mapper, IMediator mediator)
             : base(mapper, mediator)
         {
         }

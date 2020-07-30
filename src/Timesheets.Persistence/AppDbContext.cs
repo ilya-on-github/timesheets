@@ -5,7 +5,7 @@ namespace Timesheets.Persistence
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<WorkLog> WorkLogs { get; set; }
+        public DbSet<Worklog1> Worklogs { get; set; }
         public DbSet<Issue> Issues { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Employee> Employees { get; set; }

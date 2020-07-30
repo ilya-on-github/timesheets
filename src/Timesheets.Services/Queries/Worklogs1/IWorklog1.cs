@@ -1,9 +1,9 @@
 ﻿using System;
 using Timesheets.Services.Queries.Employees;
 
-namespace Timesheets.Services.Queries.WorkLogs
+namespace Timesheets.Services.Queries.Worklogs1
 {
-    public interface IWorkLog
+    public interface IWorklog1
     {
         Guid Id { get; }
         IEmployee Employee { get; }
