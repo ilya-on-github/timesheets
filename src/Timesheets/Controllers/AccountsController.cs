@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -35,6 +36,17 @@ namespace Timesheets.Controllers
             CancellationToken cancellationToken)
         {
             var command = new CreateAccountCommand(createAccountDto.Name);
+            var account = await Mediator.Send(command, cancellationToken);
+
+            return Ok(Mapper.Map<AccountDto>(account));
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(AccountDto), 200)]
+        public async Task<IActionResult> UpdateAccount(Guid id, [FromBody] UpdateAccountDto updateAccountDto,
+            CancellationToken cancellationToken)
+        {
+            var command = new UpdateAccountCommand(id, updateAccountDto.Name);
             var account = await Mediator.Send(command, cancellationToken);
 
             return Ok(Mapper.Map<AccountDto>(account));

@@ -20,6 +20,11 @@ namespace Timesheets.Services.Commands.Accounts
             Name = name;
         }
 
+        public void Update(string name)
+        {
+            SetName(name);
+        }
+
         private void SetName(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
