@@ -38,7 +38,7 @@ namespace Timesheets.DataGenerator
         [Test]
         public void GenerateAccounts()
         {
-            var accounts = _fixture.CreateMany<Account>();
+            var accounts = _fixture.CreateMany<DbAccount>();
 
             Assert.DoesNotThrowAsync(async () => { await Add(accounts, CancellationToken.None); });
         }
@@ -46,7 +46,7 @@ namespace Timesheets.DataGenerator
         [Test]
         public void GenerateEmployees()
         {
-            var employees = _fixture.CreateMany<Employee>();
+            var employees = _fixture.CreateMany<DbEmployee>();
 
             Assert.DoesNotThrowAsync(async () => { await Add(employees, CancellationToken.None); });
         }
@@ -54,10 +54,10 @@ namespace Timesheets.DataGenerator
         [Test]
         public async Task GenerateIssues()
         {
-            var accounts = await Get<Account>(CancellationToken.None);
+            var accounts = await Get<DbAccount>(CancellationToken.None);
 
             var issues = accounts.SelectMany(a =>
-                _fixture.Build<Issue>()
+                _fixture.Build<DbIssue>()
                     .With(i => i.AccountId, a.Id)
                     .CreateMany()
             );
@@ -68,13 +68,13 @@ namespace Timesheets.DataGenerator
         [Test]
         public async Task GenerateWorklogs()
         {
-            var employees = await Get<Employee>(CancellationToken.None);
-            var issues = await Get<Issue>(CancellationToken.None);
+            var employees = await Get<DbEmployee>(CancellationToken.None);
+            var issues = await Get<DbIssue>(CancellationToken.None);
 
             var workLogs = employees
                 .RandomSubset(80)
                 .SelectMany(e =>
-                    _fixture.Build<Worklog>()
+                    _fixture.Build<DbWorklog>()
                         .With(w => w.EmployeeId, e.Id)
                         .With(w => w.IssueId, issues.Random().Id)
                         .With(w => w.TimeSpent, () => TimeSpan.FromMinutes(_fixture.Create<int>()))

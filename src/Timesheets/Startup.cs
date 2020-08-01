@@ -10,6 +10,10 @@ using Microsoft.Extensions.Hosting;
 using Timesheets.Models.Mapping;
 using Timesheets.Persistence;
 using Timesheets.Persistence.Queries;
+using Timesheets.Persistence.Queries.Mapping;
+using Timesheets.Persistence.Repositories;
+using Timesheets.Pipeline;
+using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets
@@ -32,7 +36,10 @@ namespace Timesheets
                 cfg.AddProfiles(new Profile[]
                 {
                     new ApiToQueryMappingProfile(),
-                    new QueryToApiMappingProfile()
+                    new QueryToApiMappingProfile(),
+                    new ApiToCommandMappingProfile(),
+                    new CommandToPersistenceMappingProfile(),
+                    new PersistenceToCommandMappingProfile()
                 });
             });
             config.AssertConfigurationIsValid();
@@ -49,6 +56,9 @@ namespace Timesheets
                 typeof(AccountQuery).Assembly,
                 typeof(AccountQueryHandler).Assembly
             );
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionalPipelineBehavior<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

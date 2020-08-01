@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Timesheets.Persistence.Models
 {
-    public class Worklog : IEntityTypeConfiguration<Worklog>
+    public class DbWorklog : IEntityTypeConfiguration<DbWorklog>
     {
         public Guid Id { get; set; }
 
@@ -13,12 +13,12 @@ namespace Timesheets.Persistence.Models
         public string WorkDescription { get; set; }
 
         public Guid EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public DbEmployee Employee { get; set; }
 
         public Guid IssueId { get; set; }
-        public Issue Issue { get; set; }
+        public DbIssue Issue { get; set; }
 
-        public void Configure(EntityTypeBuilder<Worklog> builder)
+        public void Configure(EntityTypeBuilder<DbWorklog> builder)
         {
             builder.ToTable("Worklogs");
             builder.HasKey(x => x.Id);

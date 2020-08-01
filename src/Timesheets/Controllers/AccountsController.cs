@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Timesheets.Models;
+using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Controllers
@@ -12,7 +13,7 @@ namespace Timesheets.Controllers
     [Route("api/accounts")]
     public class AccountsController : Controller
     {
-        public AccountsController(IMapper mapper, Mediator mediator)
+        public AccountsController(IMapper mapper, IMediator mediator)
             : base(mapper, mediator)
         {
         }
@@ -22,10 +23,21 @@ namespace Timesheets.Controllers
         public async Task<IActionResult> GetAccounts([FromQuery] AccountFilterDto filterDto,
             CancellationToken cancellationToken)
         {
-            var filter = Mapper.Map<AccountFilter>(filterDto);
-            var accounts = await Mediator.Send(new AccountQuery(filter), cancellationToken);
+            var query = new AccountQuery(Mapper.Map<AccountFilter>(filterDto));
+            var accounts = await Mediator.Send(query, cancellationToken);
 
             return Ok(Mapper.Map<IEnumerable<AccountDto>>(accounts));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(AccountDto), 200)]
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountDto createAccountDto,
+            CancellationToken cancellationToken)
+        {
+            var command = new CreateAccountCommand(createAccountDto.Name);
+            var account = await Mediator.Send(command, cancellationToken);
+
+            return Ok(Mapper.Map<AccountDto>(account));
         }
     }
 }

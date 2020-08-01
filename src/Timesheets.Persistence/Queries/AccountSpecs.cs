@@ -7,15 +7,20 @@ namespace Timesheets.Persistence.Queries
 {
     public static class AccountSpecs
     {
-        public static Expression<Func<Account, bool>> ByFilter(AccountFilter filter)
+        public static Expression<Func<DbAccount, bool>> ByFilter(AccountFilter filter)
         {
             return ByQuery(filter?.Query);
         }
 
-        public static Expression<Func<Account, bool>> ByQuery(string query)
+        public static Expression<Func<DbAccount, bool>> ByQuery(string query)
         {
             return x => string.IsNullOrWhiteSpace(query) ||
                         x.Name.ToLower().Contains(query.ToLower());
+        }
+
+        public static Expression<Func<DbAccount, bool>> ById(Guid id)
+        {
+            return x => x.Id.Equals(id);
         }
     }
 }

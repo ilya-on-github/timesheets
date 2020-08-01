@@ -5,12 +5,12 @@ using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Persistence.Models
 {
-    public class Account : IEntityTypeConfiguration<Account>, IAccount
+    public class DbAccount : IEntityTypeConfiguration<DbAccount>, IAccount
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public void Configure(EntityTypeBuilder<Account> builder)
+        public void Configure(EntityTypeBuilder<DbAccount> builder)
         {
             builder.ToTable("Accounts");
             builder.HasKey(x => x.Id);

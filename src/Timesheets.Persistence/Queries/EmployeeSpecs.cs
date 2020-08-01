@@ -7,12 +7,12 @@ namespace Timesheets.Persistence.Queries
 {
     public class EmployeeSpecs
     {
-        public static Expression<Func<Employee, bool>> ByFilter(EmployeeFilter filter)
+        public static Expression<Func<DbEmployee, bool>> ByFilter(EmployeeFilter filter)
         {
             return ByQuery(filter?.Query);
         }
 
-        public static Expression<Func<Employee, bool>> ByQuery(string query)
+        public static Expression<Func<DbEmployee, bool>> ByQuery(string query)
         {
             return x => string.IsNullOrWhiteSpace(query) ||
                         x.Name.ToLower().Contains(query.ToLower());
