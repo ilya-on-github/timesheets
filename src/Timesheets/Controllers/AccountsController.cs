@@ -43,8 +43,8 @@ namespace Timesheets.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(AccountDto), 200)]
-        public async Task<IActionResult> UpdateAccount(Guid id, [FromBody] UpdateAccountDto updateAccountDto,
-            CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateAccount([FromRoute] Guid id,
+            [FromBody] UpdateAccountDto updateAccountDto, CancellationToken cancellationToken)
         {
             var command = new UpdateAccountCommand(id, updateAccountDto.Name);
             var account = await Mediator.Send(command, cancellationToken);
