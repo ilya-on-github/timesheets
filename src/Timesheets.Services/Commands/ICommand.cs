@@ -1,4 +1,4 @@
-﻿namespace Timesheets.Services.Commands.Accounts
+﻿namespace Timesheets.Services.Commands
 {
     /// <summary>
     /// Marker interface.
