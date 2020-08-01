@@ -17,5 +17,10 @@ namespace Timesheets.Persistence.Queries
             return x => string.IsNullOrWhiteSpace(query) ||
                         x.Name.ToLower().Contains(query.ToLower());
         }
+
+        public static Expression<Func<DbEmployee, bool>> ById(Guid id)
+        {
+            return x => x.Id.Equals(id);
+        }
     }
 }

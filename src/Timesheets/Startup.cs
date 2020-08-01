@@ -14,6 +14,7 @@ using Timesheets.Persistence.Queries.Mapping;
 using Timesheets.Persistence.Repositories;
 using Timesheets.Pipeline;
 using Timesheets.Services.Commands.Accounts;
+using Timesheets.Services.Commands.Employees;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets
@@ -58,6 +59,8 @@ namespace Timesheets
             );
 
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionalPipelineBehavior<,>));
         }
 
