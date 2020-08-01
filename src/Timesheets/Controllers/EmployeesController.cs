@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Timesheets.Models;
+using Timesheets.Models.Employees;
 using Timesheets.Services.Commands.Employees;
 using Timesheets.Services.Queries.Employees;
 

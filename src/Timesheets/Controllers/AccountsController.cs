@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Timesheets.Models;
+using Timesheets.Models.Accounts;
 using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Queries.Accounts;
 

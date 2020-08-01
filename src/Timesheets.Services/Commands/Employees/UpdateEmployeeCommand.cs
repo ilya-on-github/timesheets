@@ -1,6 +1,5 @@
 ﻿using System;
 using MediatR;
-using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Services.Commands.Employees

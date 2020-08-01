@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Timesheets.Persistence;
 using Timesheets.Services.Commands;
-using Timesheets.Services.Commands.Accounts;
 
 namespace Timesheets.Pipeline
 {

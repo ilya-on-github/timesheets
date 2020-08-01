@@ -1,4 +1,4 @@
-﻿namespace Timesheets.Controllers
+﻿namespace Timesheets.Models.Employees
 {
     public class CreateEmployeeDto
     {

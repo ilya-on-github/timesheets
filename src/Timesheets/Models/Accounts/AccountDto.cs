@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Timesheets.Models
+namespace Timesheets.Models.Accounts
 {
     public class AccountDto
     {

@@ -1,4 +1,4 @@
-﻿namespace Timesheets.Controllers
+﻿namespace Timesheets.Models.Accounts
 {
     public class CreateAccountDto
     {
