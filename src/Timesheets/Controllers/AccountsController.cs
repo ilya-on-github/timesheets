@@ -51,5 +51,15 @@ namespace Timesheets.Controllers
 
             return Ok(Mapper.Map<AccountDto>(account));
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DeleteAccount([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var command = new DeleteAccountCommand(id);
+            await Mediator.Send(command, cancellationToken);
+
+            return Ok();
+        }
     }
 }

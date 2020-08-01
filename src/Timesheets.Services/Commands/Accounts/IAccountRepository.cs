@@ -8,5 +8,6 @@ namespace Timesheets.Services.Commands.Accounts
     {
         Task<Account> Get(Guid id, CancellationToken cancellationToken);
         Task Save(Account account, CancellationToken cancellationToken);
+        Task Delete(Guid id, CancellationToken cancellationToken);
     }
 }

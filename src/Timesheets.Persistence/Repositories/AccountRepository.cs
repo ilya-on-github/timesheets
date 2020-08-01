@@ -42,5 +42,16 @@ namespace Timesheets.Persistence.Repositories
                 DbContext.Entry(existingAccount).CurrentValues.SetValues(dbAccount);
             }
         }
+
+        public async Task Delete(Guid id, CancellationToken cancellationToken)
+        {
+            var existingAccount = await DbContext.Accounts
+                .FirstOrDefaultAsync(AccountSpecs.ById(id), cancellationToken);
+
+            if (existingAccount != null)
+            {
+                DbContext.Accounts.Remove(existingAccount);
+            }
+        }
     }
 }

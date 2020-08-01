@@ -8,7 +8,8 @@ namespace Timesheets.Services.Commands.Accounts
 {
     // ReSharper disable once UnusedType.Global
     public class AccountCommandHandler : IRequestHandler<CreateAccountCommand, IAccount>,
-        IRequestHandler<UpdateAccountCommand, IAccount>
+        IRequestHandler<UpdateAccountCommand, IAccount>,
+        IRequestHandler<DeleteAccountCommand>
     {
         private readonly IAccountRepository _accountRepository;
 
@@ -35,6 +36,13 @@ namespace Timesheets.Services.Commands.Accounts
             await _accountRepository.Save(account, cancellationToken);
 
             return account;
+        }
+
+        public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
+        {
+            await _accountRepository.Delete(request.Id, cancellationToken);
+
+            return Unit.Value;
         }
     }
 }
