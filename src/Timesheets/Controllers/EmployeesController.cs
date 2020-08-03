@@ -36,9 +36,9 @@ namespace Timesheets.Controllers
             CancellationToken cancellationToken)
         {
             var command = new CreateEmployeeCommand(createEmployeeDto.Name);
-            var employee = await Mediator.Send(command, cancellationToken);
+            var employeeId = await Mediator.Send(command, cancellationToken);
 
-            return Ok(Mapper.Map<EmployeeDto>(employee));
+            return Ok(await GetEmployee(employeeId, cancellationToken));
         }
 
         [HttpPut("{id}")]
@@ -47,9 +47,9 @@ namespace Timesheets.Controllers
             [FromBody] UpdateEmployeeDto updateEmployeeDto, CancellationToken cancellationToken)
         {
             var command = new UpdateEmployeeCommand(id, updateEmployeeDto.Name);
-            var employee = await Mediator.Send(command, cancellationToken);
+            await Mediator.Send(command, cancellationToken);
 
-            return Ok(Mapper.Map<EmployeeDto>(employee));
+            return Ok(await GetEmployee(id, cancellationToken));
         }
 
         [HttpDelete("{id}")]
@@ -60,6 +60,12 @@ namespace Timesheets.Controllers
             await Mediator.Send(command, cancellationToken);
 
             return Ok();
+        }
+
+        private async Task<EmployeeDto> GetEmployee(Guid id, CancellationToken cancellationToken)
+        {
+            var employee = await Mediator.Send(new SingleEmployeeQuery(id), cancellationToken);
+            return Mapper.Map<EmployeeDto>(employee);
         }
     }
 }

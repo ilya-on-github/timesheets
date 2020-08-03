@@ -1,10 +1,9 @@
 ﻿using System;
 using Timesheets.Services.Commands.Issues;
-using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Services.Commands.Accounts
 {
-    public class Account : IAccount
+    public class Account
     {
         public Guid Id { get; }
         public string Name { get; private set; }

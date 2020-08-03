@@ -35,6 +35,7 @@ namespace Timesheets.Persistence.Queries
         {
             var issue = await DbContext.Issues
                 .AsNoTracking()
+                .Include(x => x.Account)
                 .FirstOrDefaultAsync(IssueSpecs.ById(request.Id), cancellationToken);
 
             return Mapper.Map<IIssue>(issue);

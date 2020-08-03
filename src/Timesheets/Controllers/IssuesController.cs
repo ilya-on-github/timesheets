@@ -38,9 +38,9 @@ namespace Timesheets.Controllers
             var request = new CreateIssueCommand(createIssueDto.Summary, createIssueDto.Description,
                 createIssueDto.Account.Id);
 
-            var issue = await Mediator.Send(request, cancellationToken);
+            var issueId = await Mediator.Send(request, cancellationToken);
 
-            return Ok(Mapper.Map<IssueDto>(issue));
+            return Ok(await GetIssue(issueId, cancellationToken));
         }
 
         [HttpPut("{id}")]
@@ -51,9 +51,9 @@ namespace Timesheets.Controllers
             var request = new UpdateIssueCommand(id, updateIssueDto.Summary, updateIssueDto.Description,
                 updateIssueDto.Account?.Id);
 
-            var issue = await Mediator.Send(request, cancellationToken);
+            await Mediator.Send(request, cancellationToken);
 
-            return Ok(Mapper.Map<IssueDto>(issue));
+            return Ok(await GetIssue(id, cancellationToken));
         }
 
         [HttpDelete("{id}")]
@@ -65,6 +65,12 @@ namespace Timesheets.Controllers
             await Mediator.Send(request, cancellationToken);
 
             return Ok();
+        }
+
+        private async Task<IssueDto> GetIssue(Guid id, CancellationToken cancellationToken)
+        {
+            var issue = await Mediator.Send(new SingleIssueQuery(id), cancellationToken);
+            return Mapper.Map<IssueDto>(issue);
         }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Timesheets.Services.Commands.Issues
 {
-    public class DeleteIssueCommand : ICommand, IRequest<Unit>
+    public class DeleteIssueCommand : ICommand, IRequest
     {
         public Guid Id { get; }
 

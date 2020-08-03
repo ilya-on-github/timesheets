@@ -1,9 +1,8 @@
 ﻿using System;
-using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Services.Commands.Employees
 {
-    public class Employee : IEmployee
+    public class Employee
     {
         public Guid Id { get; }
         public string Name { get; private set; }

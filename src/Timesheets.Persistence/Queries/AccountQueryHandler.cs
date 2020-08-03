@@ -9,7 +9,8 @@ using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class AccountQueryHandler : Query, IRequestHandler<AccountQuery, IEnumerable<IAccount>>
+    public class AccountQueryHandler : Query, IRequestHandler<AccountQuery, IEnumerable<IAccount>>,
+        IRequestHandler<SingleAccountQuery, IAccount>
     {
         public AccountQueryHandler(AppDbContext dbContext, IMapper mapper)
             : base(dbContext, mapper)
@@ -26,6 +27,14 @@ namespace Timesheets.Persistence.Queries
                 .ToListAsync(cancellationToken);
 
             return Mapper.Map<IEnumerable<IAccount>>(items);
+        }
+
+        public async Task<IAccount> Handle(SingleAccountQuery request, CancellationToken cancellationToken)
+        {
+            var account = await DbContext.Accounts
+                .FirstOrDefaultAsync(AccountSpecs.ById(request.Id), cancellationToken);
+
+            return Mapper.Map<IAccount>(account);
         }
     }
 }

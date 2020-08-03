@@ -36,9 +36,9 @@ namespace Timesheets.Controllers
             CancellationToken cancellationToken)
         {
             var command = new CreateAccountCommand(createAccountDto.Name);
-            var account = await Mediator.Send(command, cancellationToken);
+            var accountId = await Mediator.Send(command, cancellationToken);
 
-            return Ok(Mapper.Map<AccountDto>(account));
+            return Ok(await GetAccount(accountId, cancellationToken));
         }
 
         [HttpPut("{id}")]
@@ -47,9 +47,9 @@ namespace Timesheets.Controllers
             [FromBody] UpdateAccountDto updateAccountDto, CancellationToken cancellationToken)
         {
             var command = new UpdateAccountCommand(id, updateAccountDto.Name);
-            var account = await Mediator.Send(command, cancellationToken);
+            await Mediator.Send(command, cancellationToken);
 
-            return Ok(Mapper.Map<AccountDto>(account));
+            return Ok(await GetAccount(id, cancellationToken));
         }
 
         [HttpDelete("{id}")]
@@ -60,6 +60,12 @@ namespace Timesheets.Controllers
             await Mediator.Send(command, cancellationToken);
 
             return Ok();
+        }
+
+        private async Task<AccountDto> GetAccount(Guid id, CancellationToken cancellationToken)
+        {
+            var account = await Mediator.Send(new SingleAccountQuery(id), cancellationToken);
+            return Mapper.Map<AccountDto>(account);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using MediatR;
-using Timesheets.Services.Queries.Accounts;
+﻿using System;
+using MediatR;
 
 namespace Timesheets.Services.Commands.Accounts
 {
-    public class CreateAccountCommand : ICommand, IRequest<IAccount>
+    public class CreateAccountCommand : ICommand, IRequest<Guid>
     {
         public string Name { get; }
 

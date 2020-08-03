@@ -1,10 +1,9 @@
 ﻿using System;
 using MediatR;
-using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Services.Commands.Employees
 {
-    public class UpdateEmployeeCommand : ICommand, IRequest<IEmployee>
+    public class UpdateEmployeeCommand : ICommand, IRequest
     {
         public Guid Id { get; }
         public string Name { get; }

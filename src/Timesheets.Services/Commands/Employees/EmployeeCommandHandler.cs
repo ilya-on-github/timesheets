@@ -2,13 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Services.Commands.Employees
 {
     // ReSharper disable once UnusedType.Global
-    public class EmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, IEmployee>,
-        IRequestHandler<UpdateEmployeeCommand, IEmployee>, IRequestHandler<DeleteEmployeeCommand>
+    public class EmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, Guid>,
+        IRequestHandler<UpdateEmployeeCommand>, IRequestHandler<DeleteEmployeeCommand>
     {
         private readonly IEmployeeRepository _employeeRepository;
 
@@ -17,16 +16,16 @@ namespace Timesheets.Services.Commands.Employees
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
-        public async Task<IEmployee> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
         {
             var employee = new Employee(request.Name);
 
             await _employeeRepository.Save(employee, cancellationToken);
 
-            return employee;
+            return employee.Id;
         }
 
-        public async Task<IEmployee> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
         {
             var employee = await _employeeRepository.Get(request.Id, cancellationToken);
 
@@ -34,7 +33,7 @@ namespace Timesheets.Services.Commands.Employees
 
             await _employeeRepository.Save(employee, cancellationToken);
 
-            return employee;
+            return Unit.Value;
         }
 
         public async Task<Unit> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)

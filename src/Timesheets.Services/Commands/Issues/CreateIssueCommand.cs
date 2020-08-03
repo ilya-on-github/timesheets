@@ -1,10 +1,9 @@
 ﻿using System;
 using MediatR;
-using Timesheets.Services.Queries.Issues;
 
 namespace Timesheets.Services.Commands.Issues
 {
-    public class CreateIssueCommand : ICommand, IRequest<IIssue>
+    public class CreateIssueCommand : ICommand, IRequest<Guid>
     {
         public string Summary { get; }
         public string Description { get; }

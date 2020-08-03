@@ -9,7 +9,8 @@ using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class EmployeeQueryHandler : Query, IRequestHandler<EmployeeQuery, IEnumerable<IEmployee>>
+    public class EmployeeQueryHandler : Query, IRequestHandler<EmployeeQuery, IEnumerable<IEmployee>>,
+        IRequestHandler<SingleEmployeeQuery, IEmployee>
     {
         public EmployeeQueryHandler(AppDbContext dbContext, IMapper mapper)
             : base(dbContext, mapper)
@@ -26,6 +27,14 @@ namespace Timesheets.Persistence.Queries
                 .ToListAsync(cancellationToken);
 
             return Mapper.Map<IEnumerable<IEmployee>>(items);
+        }
+
+        public async Task<IEmployee> Handle(SingleEmployeeQuery request, CancellationToken cancellationToken)
+        {
+            var employee = await DbContext.Employees
+                .FirstOrDefaultAsync(EmployeeSpecs.ById(request.Id), cancellationToken);
+
+            return Mapper.Map<IEmployee>(employee);
         }
     }
 }

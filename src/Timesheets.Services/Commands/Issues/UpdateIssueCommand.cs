@@ -4,7 +4,7 @@ using Timesheets.Services.Queries.Issues;
 
 namespace Timesheets.Services.Commands.Issues
 {
-    public class UpdateIssueCommand : ICommand, IRequest<IIssue>
+    public class UpdateIssueCommand : ICommand, IRequest
     {
         public Guid Id { get; }
         public string Summary { get; }
