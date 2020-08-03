@@ -1,5 +1,6 @@
 ﻿using System;
 using Timesheets.Services.Queries.Employees;
+using Timesheets.Services.Queries.Issues;
 
 namespace Timesheets.Services.Queries.Worklogs
 {

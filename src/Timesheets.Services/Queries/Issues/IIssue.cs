@@ -1,7 +1,7 @@
 ﻿using System;
 using Timesheets.Services.Queries.Accounts;
 
-namespace Timesheets.Services.Queries
+namespace Timesheets.Services.Queries.Issues
 {
     public interface IIssue
     {

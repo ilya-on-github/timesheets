@@ -2,6 +2,7 @@
 using Timesheets.Persistence.Models;
 using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Commands.Employees;
+using Timesheets.Services.Commands.Issues;
 
 namespace Timesheets.Persistence.Queries.Mapping
 {
@@ -11,6 +12,9 @@ namespace Timesheets.Persistence.Queries.Mapping
         {
             CreateMap<Account, DbAccount>();
             CreateMap<Employee, DbEmployee>();
+
+            CreateMap<Issue, DbIssue>()
+                .ForMember(x => x.Account, cfg => cfg.Ignore());
         }
     }
 }

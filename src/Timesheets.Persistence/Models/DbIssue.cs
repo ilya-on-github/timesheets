@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Timesheets.Services.Queries.Accounts;
+using Timesheets.Services.Queries.Issues;
 
 namespace Timesheets.Persistence.Models
 {
-    public class DbIssue : IEntityTypeConfiguration<DbIssue>
+    public class DbIssue : IEntityTypeConfiguration<DbIssue>, IIssue
     {
         public Guid Id { get; set; }
         public string Summary { get; set; }
@@ -12,6 +14,8 @@ namespace Timesheets.Persistence.Models
 
         public Guid AccountId { get; set; }
         public DbAccount Account { get; set; }
+
+        IAccount IIssue.Account => Account;
 
         public void Configure(EntityTypeBuilder<DbIssue> builder)
         {

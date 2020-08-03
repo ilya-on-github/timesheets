@@ -1,4 +1,5 @@
 ﻿using System;
+using Timesheets.Services.Commands.Issues;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Services.Commands.Accounts
@@ -18,6 +19,11 @@ namespace Timesheets.Services.Commands.Accounts
         {
             Id = id;
             Name = name;
+        }
+
+        public AccountDescriptor Descriptor()
+        {
+            return new AccountDescriptor(Id, Name);
         }
 
         public void Update(string name)
