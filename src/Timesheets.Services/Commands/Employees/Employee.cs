@@ -20,6 +20,11 @@ namespace Timesheets.Services.Commands.Employees
             Name = name;
         }
 
+        public EmployeeDescriptor Descriptor()
+        {
+            return new EmployeeDescriptor(Id, Name);
+        }
+
         public void Update(string name)
         {
             SetName(name);

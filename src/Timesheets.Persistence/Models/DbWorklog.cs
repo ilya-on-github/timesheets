@@ -1,10 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Timesheets.Services.Queries.Employees;
+using Timesheets.Services.Queries.Issues;
+using Timesheets.Services.Queries.Worklogs;
 
 namespace Timesheets.Persistence.Models
 {
-    public class DbWorklog : IEntityTypeConfiguration<DbWorklog>
+    public class DbWorklog : IEntityTypeConfiguration<DbWorklog>, IWorklog
     {
         public Guid Id { get; set; }
 
@@ -17,6 +20,9 @@ namespace Timesheets.Persistence.Models
 
         public Guid IssueId { get; set; }
         public DbIssue Issue { get; set; }
+
+        IIssue IWorklog.Issue => Issue;
+        IEmployee IWorklog.Employee => Employee;
 
         public void Configure(EntityTypeBuilder<DbWorklog> builder)
         {

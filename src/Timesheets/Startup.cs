@@ -16,6 +16,7 @@ using Timesheets.Pipeline;
 using Timesheets.Services.Commands.Accounts;
 using Timesheets.Services.Commands.Employees;
 using Timesheets.Services.Commands.Issues;
+using Timesheets.Services.Commands.Worklogs;
 using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets
@@ -63,7 +64,10 @@ namespace Timesheets
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IIssueRepository, IssueRepository>();
+            services.AddScoped<IWorklogRepository, WorklogRepository>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IIssueService, IssueService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionalPipelineBehavior<,>));
         }

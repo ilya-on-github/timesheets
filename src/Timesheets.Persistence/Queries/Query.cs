@@ -3,7 +3,7 @@ using AutoMapper;
 
 namespace Timesheets.Persistence.Queries
 {
-    public abstract class Query
+    public abstract class Query // TODO: rename to 'QueryHandler'
     {
         protected AppDbContext DbContext;
         protected IMapper Mapper;

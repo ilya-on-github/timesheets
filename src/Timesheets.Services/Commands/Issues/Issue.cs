@@ -25,6 +25,11 @@ namespace Timesheets.Services.Commands.Issues
             AccountId = accountId;
         }
 
+        public IssueDescriptor Descriptor()
+        {
+            return new IssueDescriptor(Id, Summary);
+        }
+
         public void Update(string summary, string description, AccountDescriptor account)
         {
             SetSummary(summary);
