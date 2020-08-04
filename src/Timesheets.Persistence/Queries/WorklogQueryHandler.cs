@@ -9,7 +9,7 @@ using Timesheets.Services.Queries.Worklogs;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class WorklogQueryHandler : Query, IRequestHandler<WorklogQuery, IEnumerable<IWorklog>>,
+    public class WorklogQueryHandler : QueryHandler, IRequestHandler<WorklogQuery, IEnumerable<IWorklog>>,
         IRequestHandler<SingleWorklogQuery, IWorklog>
     {
         public WorklogQueryHandler(AppDbContext dbContext, IMapper mapper)

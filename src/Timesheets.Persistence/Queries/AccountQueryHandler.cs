@@ -9,7 +9,7 @@ using Timesheets.Services.Queries.Accounts;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class AccountQueryHandler : Query, IRequestHandler<AccountQuery, IEnumerable<IAccount>>,
+    public class AccountQueryHandler : QueryHandler, IRequestHandler<AccountQuery, IEnumerable<IAccount>>,
         IRequestHandler<SingleAccountQuery, IAccount>
     {
         public AccountQueryHandler(AppDbContext dbContext, IMapper mapper)

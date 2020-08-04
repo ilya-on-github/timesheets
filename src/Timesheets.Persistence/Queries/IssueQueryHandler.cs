@@ -10,7 +10,7 @@ using Timesheets.Services.Queries.Issues;
 namespace Timesheets.Persistence.Queries
 {
     // ReSharper disable once UnusedType.Global
-    public class IssueQueryHandler : Query, IRequestHandler<IssueQuery, IEnumerable<IIssue>>,
+    public class IssueQueryHandler : QueryHandler, IRequestHandler<IssueQuery, IEnumerable<IIssue>>,
         IRequestHandler<SingleIssueQuery, IIssue>
     {
         public IssueQueryHandler(AppDbContext dbContext, IMapper mapper)

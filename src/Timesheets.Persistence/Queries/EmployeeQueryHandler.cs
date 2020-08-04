@@ -9,7 +9,7 @@ using Timesheets.Services.Queries.Employees;
 
 namespace Timesheets.Persistence.Queries
 {
-    public class EmployeeQueryHandler : Query, IRequestHandler<EmployeeQuery, IEnumerable<IEmployee>>,
+    public class EmployeeQueryHandler : QueryHandler, IRequestHandler<EmployeeQuery, IEnumerable<IEmployee>>,
         IRequestHandler<SingleEmployeeQuery, IEmployee>
     {
         public EmployeeQueryHandler(AppDbContext dbContext, IMapper mapper)
