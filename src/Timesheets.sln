@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Persistence", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Services", "Timesheets.Services\Timesheets.Services.csproj", "{2C34422D-C444-414E-A280-170B17FF92DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Jira", "Timesheets.Jira\Timesheets.Jira.csproj", "{FA265C21-0694-46EB-A1F1-349621CE84A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{2C34422D-C444-414E-A280-170B17FF92DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C34422D-C444-414E-A280-170B17FF92DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C34422D-C444-414E-A280-170B17FF92DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA265C21-0694-46EB-A1F1-349621CE84A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA265C21-0694-46EB-A1F1-349621CE84A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA265C21-0694-46EB-A1F1-349621CE84A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA265C21-0694-46EB-A1F1-349621CE84A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
